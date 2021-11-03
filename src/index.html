@@ -1,13 +1,100 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+  <style>
+    html,body{
+      height: 100%;
+    }
+    
+    @keyframes slideInRight {
+      from {
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+      }
+
+      to {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    button.chatLauncher {
+      animation-duration: 0.5s;
+      transition-duration: 0.5s;
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      z-index: 9999;
+      padding: 0.1em;
+      margin: 0;
+      cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      opacity: 0;
+      background-color: Transparent;
+      border: none;
+    }
+
+    button.chatLauncher.open {
+      animation-name: slideInRight;
+      opacity: 1;
+    }
+
+    button.chatLauncher:hover,
+    button.chatLauncher:focus {
+      transform: rotate(15deg);
+    }
+
+    button.chatLauncher:focus {
+      outline-offset: -4px;
+    }
+  </style>
   <meta charset="utf-8">
-  <title>DepressionDetectionSystem</title>
+  <title>Portal de Salud Mental | Depresión </title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./assets/img/favicon.png">
 </head>
+
 <body>
   <app-root></app-root>
+  <button type="button" class="chatLauncher" style="display:none;">
+    <div>
+      <img class="" src="./assets/img/aidbot.png" alt="AidBot">
+    </div>
+  </button>
+  <script>
+    window.watsonAssistantChatOptions = {
+      integrationID: "d0a6336e-b048-4330-899b-80362985e99f", // The ID of this integration.
+      region: "us-south", // The region your integration is hosted in.
+      serviceInstanceID: "56667069-cb26-40a4-8104-2ea02280d773", // The ID of your service instance.
+      showLauncher: false,//Delete icon
+      onLoad: function (instance) {
+        // Select the button element from the page.
+        const button = document.querySelector('.chatLauncher');
+
+        // Add the event listener to open your web chat.
+        button.addEventListener('click', function clickListener() {
+          instance.openWindow();
+        });
+
+        // Render the web chat. Nothing appears on the page, because the launcher is
+        // hidden and the web chat window is closed by default.
+        
+        instance.render().then(function () {
+          // Now that web chat has been rendered (but is still closed), we make the
+          // custom launcher button visible.
+          button.style.display = 'block';
+          button.classList.add('open');
+        });
+      }
+    };
+    setTimeout(function () {
+      const t = document.createElement('script');
+      t.src = "https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+      document.head.appendChild(t);
+    });
+  </script>
 </body>
+
 </html>

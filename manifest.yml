@@ -1,0 +1,8 @@
+applications:
+- name: depression-detection-system
+  memory: 30M
+  path: ./dist/depression-detection-system
+  instances: 1
+  memory: 30M
+  buildpacks:
+    - staticfile_buildpack
