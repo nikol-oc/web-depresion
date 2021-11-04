@@ -10,8 +10,9 @@ import { UserService } from '../service/user.service';
 export class RegisterComponent implements OnInit {
 
   email!: string;
-  password!: string;
+  distrito!: string;
   name!: string;
+  age!: number;
 
   constructor(
     private userService: UserService,
@@ -27,7 +28,8 @@ export class RegisterComponent implements OnInit {
     const user = { 
       name: this.name,
       email: this.email,
-      password: this.password
+      age: this.age,
+      distrito: this.distrito
     };
 
     this.userService.save_user(user).subscribe(
@@ -44,7 +46,8 @@ export class RegisterComponent implements OnInit {
   limpiarFormulario(){
     this.name = "";
     this.email = "";
-    this.password= "";
+    this.distrito= "";
+    this.age= 0;
   }
 
   rutas(ruta: string) {

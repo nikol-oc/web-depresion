@@ -13,9 +13,6 @@ import { HomeComponent } from './home/home.component';
 import { AdviceComponent } from './advice/advice.component';
 import { AboutComponent } from './about/about.component';
 import { NewsComponent } from './news/news.component';
-import { ActivitiesComponent } from './activities/activities.component';
-import { DailyComponent } from './daily/daily.component';
-import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -36,9 +33,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AdviceComponent,
     AboutComponent,
     NewsComponent,
-    ActivitiesComponent,
-    DailyComponent,
-    LoginComponent,
     RegisterComponent
   ],
   imports: [
