@@ -1,0 +1,2038 @@
+{
+  "intents": [
+    {
+      "intent": "Adios",
+      "examples": [
+        {
+          "text": "bye"
+        },
+        {
+          "text": "chau"
+        },
+        {
+          "text": "eres genial"
+        },
+        {
+          "text": "gracias"
+        },
+        {
+          "text": "gracias aidbot"
+        },
+        {
+          "text": "gracias por todo"
+        },
+        {
+          "text": "hasta luego"
+        },
+        {
+          "text": "hasta pronto"
+        },
+        {
+          "text": "muchas gracias"
+        },
+        {
+          "text": "nos vemos"
+        },
+        {
+          "text": "super"
+        },
+        {
+          "text": "te lo agradezco"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "confirmar",
+      "examples": [
+        {
+          "text": "esta bien"
+        },
+        {
+          "text": "Estoy lista"
+        },
+        {
+          "text": "listo"
+        },
+        {
+          "text": "ok"
+        },
+        {
+          "text": "Podemos comenzar"
+        },
+        {
+          "text": "si"
+        },
+        {
+          "text": "Si empezar"
+        },
+        {
+          "text": "ya"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "noConfirmar",
+      "examples": [
+        {
+          "text": "creo que no"
+        },
+        {
+          "text": "mejor no"
+        },
+        {
+          "text": "No"
+        },
+        {
+          "text": "No estoy listo"
+        },
+        {
+          "text": "no lose"
+        },
+        {
+          "text": "no quiero"
+        },
+        {
+          "text": "no quiero empezar"
+        },
+        {
+          "text": "ya no"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "nombre",
+      "examples": [
+        {
+          "text": "Mi nombre es"
+        },
+        {
+          "text": "Nikol"
+        },
+        {
+          "text": "soy"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "nombreBot",
+      "examples": [
+        {
+          "text": "Aidbot"
+        },
+        {
+          "text": "tu eres AidBot"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "responderTest",
+      "examples": [
+        {
+          "text": "0"
+        },
+        {
+          "text": "1"
+        },
+        {
+          "text": "2"
+        },
+        {
+          "text": "3"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "evaluacion",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "PHQ9",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "SRQ",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "nombre",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "nombre",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-number",
+      "values": [],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    },
+    "from-sample": true
+  },
+  "webhooks": [
+    {
+      "url": "https://us-south.functions.cloud.ibm.com/api/v1/namespaces/Nikol.Lopez%40ibm.com_dev/actions/depression/save-rptas-seq?blocking=true",
+      "name": "main_webhook",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Basic NDhjNGViMDctYjdlNC00MzRkLTg2OTktYzBlNWYxMjBhYjRiOjFKdU9VY290YUNOWUJVUm81YmYzT1k1TUlJdG93Wk52VDNOZU9QSTNjY3JTdWZaWEh5ck9RdmZFMFRDOXREVE8="
+        }
+      ]
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bienvenido",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hola!  Soy tu asistente virtual mi nombre es AidBot. ¿Cuál es tu nombre?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bienvenido"
+    },
+    {
+      "type": "standard",
+      "title": "En otras cosas",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "No le he entendido. Intente reformular la consulta."
+              },
+              {
+                "text": "¿Puede expresarse con otras palabras? No le he entendido."
+              },
+              {
+                "text": "No entendí el significado."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "En otras cosas",
+      "previous_sibling": "node_10_1635998046519",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Un gusto <?input_text?>, te acompañare durante tu evaluación."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_10_1635875812030",
+      "event_name": "focus",
+      "dialog_node": "handler_10_1635875812036",
+      "previous_sibling": "handler_5_1635875812035"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_10_1635946940183",
+      "context": {
+        "rptaA3": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_10_1635946940183"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_9_1635949327304",
+      "context": {
+        "rptaA4": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_10_1635949327304"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_4_1635964306698",
+      "context": {
+        "rptaB2": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_10_1635964306717"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "1. ¿Tiene dolores frecuentes de cabeza?"
+              },
+              {
+                "text": "1. ¿Se siente cansado muy a menudo?"
+              },
+              {
+                "text": "1. ¿Tiene sensaciones desagradables en su estómago?"
+              },
+              {
+                "text": "1. ¿Se cansa con facilidad?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Si",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "No",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_10_1635946847741",
+      "event_name": "focus",
+      "dialog_node": "handler_1_1635946847749",
+      "previous_sibling": "handler_9_1635946847749"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "3. ¿Ha perdido interés en las cosas?"
+              },
+              {
+                "text": "3. ¿Se siente nervioso, tenso, aburrido o intranquilo?"
+              },
+              {
+                "text": "3. ¿Sufre de mala digestión?"
+              },
+              {
+                "text": "3. ¿Le resulta difícil pensar con claridad?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Si",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "No",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_10_1635946940183",
+      "event_name": "focus",
+      "dialog_node": "handler_1_1635946940183",
+      "previous_sibling": "handler_10_1635946940183"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "2. ¿Le cuesta trabajo dormir o se despierta y le resulta difícil volver a dormirse?"
+              },
+              {
+                "text": "2. ¿Sus ganas de comer han aumentado o disminuido?"
+              },
+              {
+                "text": "2. ¿Se asusta con facilidad? "
+              },
+              {
+                "text": "2. ¿Sufre de temblor de manos?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Si",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "No",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_8_1635946999427",
+      "event_name": "focus",
+      "dialog_node": "handler_2_1635946999427",
+      "previous_sibling": "handler_5_1635946999427"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "3.  Dificultad  para  dormir o  permanecer  dormido(a), o ha dormido  demasiado"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_6_1635966963738",
+      "event_name": "focus",
+      "dialog_node": "handler_2_1635966963739",
+      "previous_sibling": "handler_5_1635966963739"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "5.  Con poco  apetito o ha  comido en exceso"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_7_1635967160365",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1635967160365",
+      "previous_sibling": "handler_9_1635967160365"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "8.  ¿Se ha  estado  moviendo o hablando tan  lento que otras personas  podrían  notarlo?, o por el  contrario  – ha  estado tan  inquieto(a) o agitado(a),  que se  ha  estado  moviendo mucho  más  de  lo normal"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_6_1635967173920",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1635967173920",
+      "previous_sibling": "handler_6_1635967173920"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "1. Se ha  sentido  decaído(a),  deprimido(a), o sin  esperanzas"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_10_1635966691328",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1635966691330",
+      "previous_sibling": "handler_5_1635966691330"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "9.  Ha  pensado  que  estaría  mejor muerto(a)  o  se  le ha  ocurrido lastimarse  de alguna manera"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_1_1635967171345",
+      "event_name": "focus",
+      "dialog_node": "handler_4_1635967171346",
+      "previous_sibling": "handler_7_1635967171346"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_10_1635875812030",
+      "context": {
+        "nombre": "@nombre"
+      },
+      "conditions": "@nombre",
+      "event_name": "input",
+      "dialog_node": "handler_5_1635875812035"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_8_1635946999427",
+      "context": {
+        "rptaA2": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_5_1635946999427"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "4. ¿Siente que es una persona inútil? "
+              },
+              {
+                "text": "4. ¿Se siente triste?"
+              },
+              {
+                "text": "4. ¿Llora con mucha frecuencia?"
+              },
+              {
+                "text": "4. ¿Tiene dificultad para tomar decisiones? "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Si",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "No",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_9_1635949327304",
+      "event_name": "focus",
+      "dialog_node": "handler_5_1635949327304",
+      "previous_sibling": "handler_10_1635949327304"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_10_1635966691328",
+      "context": {
+        "rptaB1": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_5_1635966691330"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1635966963738",
+      "context": {
+        "rptaB3": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_5_1635966963739"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "6.  Se ha  sentido  mal con  usted  mismo(a)  o que es  un fracaso o  que ha  quedado  mal con usted  mismo(a)  o  con su  familia"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_2_1635967165135",
+      "event_name": "focus",
+      "dialog_node": "handler_5_1635967165135",
+      "previous_sibling": "handler_8_1635967165135"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1635967168366",
+      "context": {
+        "rptaB7": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_5_1635967168366"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1635967173920",
+      "context": {
+        "rptaB8": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_6_1635967173920"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Aun no me has dicho tu nombre"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "slot_6_1635377197756",
+      "event_name": "focus",
+      "dialog_node": "handler_7_1635377197772",
+      "previous_sibling": "handler_9_1635377197772"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_9_1635949501904",
+      "context": {
+        "rptaA5": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_7_1635949501904"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_1_1635967171345",
+      "context": {
+        "rptaB9": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_7_1635967171346"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1635967073109",
+      "context": {
+        "rptaB4": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_8_1635967073110"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_2_1635967165135",
+      "context": {
+        "rptaB6": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_8_1635967165135"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1635377197756",
+      "context": {
+        "nombre": ""
+      },
+      "conditions": "",
+      "event_name": "input",
+      "dialog_node": "handler_9_1635377197772"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_10_1635946847741",
+      "context": {
+        "rptaA1": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_9_1635946847749"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "5. ¿Tiene dificultad para disfrutar sus actividades diarias? "
+              },
+              {
+                "text": "5. ¿Tiene dificultad para hacer su trabajo (sufre con su trabajo)?"
+              },
+              {
+                "text": "5. ¿Le resulta difícil desempeñar un papel útil en su vida? "
+              },
+              {
+                "text": "5. ¿Ha tenido la idea de acabar con su vida?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Si",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "No",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_9_1635949501904",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1635949501904",
+      "previous_sibling": "handler_7_1635949501904"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "2. Poco  interés o  placer  en  hacer  las  cosas"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_4_1635964306698",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1635964306717",
+      "previous_sibling": "handler_10_1635964306717"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "4.  Se  ha  sentido  cansado(a)  o  con  poca  energía "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días ",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_6_1635967073109",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1635967073110",
+      "previous_sibling": "handler_8_1635967073110"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_7_1635967160365",
+      "context": {
+        "rptaB5": "<?entities['sys-number'].value?>"
+      },
+      "conditions": "entities['sys-number']",
+      "event_name": "input",
+      "dialog_node": "handler_9_1635967160365"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "7.  Ha  tenido  dificultad  para concentrarse  en  cosas  tales  como leer  el  periódico  o  ver  televisión"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "",
+            "options": [
+              {
+                "label": "Para nada",
+                "value": {
+                  "input": {
+                    "text": "0"
+                  }
+                }
+              },
+              {
+                "label": "Varios días",
+                "value": {
+                  "input": {
+                    "text": "1"
+                  }
+                }
+              },
+              {
+                "label": "Más de la  mitad de  los días",
+                "value": {
+                  "input": {
+                    "text": "2"
+                  }
+                }
+              },
+              {
+                "label": "Casi todos  los días",
+                "value": {
+                  "input": {
+                    "text": "3"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "slot_6_1635967168366",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1635967168366",
+      "previous_sibling": "handler_5_1635967168366"
+    },
+    {
+      "type": "standard",
+      "title": "Información AidBot",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Mi nombre es AidBot,  fui diseñado para ayudarte a detectar la depresión."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#nombreBot",
+      "dialog_node": "node_10_1635998046519",
+      "previous_sibling": "node_1_1635946731687"
+    },
+    {
+      "type": "standard",
+      "title": "Empezar",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Mucha suerte!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "metadata": {
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_1_1635946731687"
+      },
+      "conditions": "#confirmar",
+      "dialog_node": "node_1_1635376089377",
+      "previous_sibling": "node_2_1635945643364"
+    },
+    {
+      "type": "frame",
+      "title": "Evaluación SRQ",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "tipo": "SRQ",
+            "rptaA1": "<? $rptaA1.toInt() ?>",
+            "rptaA2": "<? $rptaA2.toInt() ?>",
+            "rptaA3": "<? $rptaA3.toInt() ?>",
+            "rptaA4": "<? $rptaA4.toInt() ?>",
+            "rptaA5": "<? $rptaA5.toInt() ?>"
+          },
+          "result_variable": "webhook_result_1"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_1_1635946731687",
+      "previous_sibling": "node_1_1635376089377"
+    },
+    {
+      "type": "frame",
+      "title": "Evaluación PHQ9",
+      "parent": "node_5_1635997049627",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "tipo": "PHQ9",
+            "rptaB1": "<? $rptaB1.toInt() ?>",
+            "rptaB2": "<? $rptaB2.toInt() ?>",
+            "rptaB3": "<? $rptaB3.toInt() ?>",
+            "rptaB4": "<? $rptaB4.toInt() ?>",
+            "rptaB5": "<? $rptaB5.toInt() ?>",
+            "rptaB6": "<? $rptaB6.toInt() ?>",
+            "rptaB7": "<? $rptaB7.toInt() ?>",
+            "rptaB8": "<? $rptaB8.toInt() ?>",
+            "rptaB9": "<? $rptaB9.toInt() ?>"
+          },
+          "result_variable": "webhook_result_2"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "true",
+      "dialog_node": "node_1_1635962603533"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fantástico, nos vemos!"
+              },
+              {
+                "text": "Cool"
+              },
+              {
+                "text": "Buena suerte"
+              },
+              {
+                "text": "Sigue sonriendo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1636000694986",
+      "conditions": "#Adios",
+      "dialog_node": "node_1_1635986874230"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fantástico, nos vemos!"
+              },
+              {
+                "text": "Cool"
+              },
+              {
+                "text": "Buena suerte"
+              },
+              {
+                "text": "Sigue sonriendo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1636000521725",
+      "conditions": "#Adios",
+      "dialog_node": "node_1_1636001485371"
+    },
+    {
+      "type": "standard",
+      "title": "Pregunta datos",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Un gusto <?input_text?>, te acompañare durante tu evaluación."
+              },
+              {
+                "text": "Un placer <?input_text?>, te acompañare durante tu evaluación."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          },
+          {
+            "values": [
+              {
+                "text": "Recuerda contestar con honestidad, ¿Podemos empezar?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "Bienvenido",
+      "conditions": "#nombre",
+      "dialog_node": "node_2_1635875775722"
+    },
+    {
+      "type": "standard",
+      "title": "No empezar",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "No te detengas! puedes revisar nuestra sección de noticias mientras decides."
+              },
+              {
+                "text": "No te detengas, puedes revisar información acerca de la depresión  para ayudarte a tomar una decisión."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#noConfirmar",
+      "digress_in": "does_not_return",
+      "dialog_node": "node_2_1635945643364",
+      "previous_sibling": "Bienvenido"
+    },
+    {
+      "type": "standard",
+      "title": "Reconoce Nivel de Depresión Moderado",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Su nivel de depresión es <b>Moderado</b>, revisa la sección de <b>consejos</b> de nuestra web y realiza algunos para controlar tu estado de salud."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "No dejes que lo que no puedes hacer interfiera con lo que puedes hacer!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635962603533",
+      "conditions": "$puntajeB1 >= 5 && $puntajeB1 <= 14",
+      "dialog_node": "node_2_1636000360251",
+      "previous_sibling": "node_5_1635999318211"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fantástico, nos vemos!"
+              },
+              {
+                "text": "Cool"
+              },
+              {
+                "text": "Buena suerte"
+              },
+              {
+                "text": "Sigue sonriendo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1635999318211",
+      "conditions": "#Adios",
+      "dialog_node": "node_2_1636001497564"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fantástico, nos vemos!"
+              },
+              {
+                "text": "Cool"
+              },
+              {
+                "text": "Buena suerte"
+              },
+              {
+                "text": "Sigue sonriendo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1636000360251",
+      "conditions": "#Adios",
+      "dialog_node": "node_3_1636001507779"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida ",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Fantástico, nos vemos!"
+              },
+              {
+                "text": "Cool"
+              },
+              {
+                "text": "Buena suerte"
+              },
+              {
+                "text": "Sigue sonriendo!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_2_1635945643364",
+      "conditions": "#Adios",
+      "dialog_node": "node_4_1636001542259"
+    },
+    {
+      "type": "standard",
+      "title": "Reconoce Usuario con Depresión",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Según la evaluación usted tiene una tendencia a pasar por un <b>cuadro de depresión</b>.  "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Tienes que responder estas preguntas para determinar el nivel de depresión. Responde con Honestidad!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635946731687",
+      "next_step": {
+        "behavior": "skip_user_input"
+      },
+      "conditions": "$puntajeA1 > 2",
+      "dialog_node": "node_5_1635997049627"
+    },
+    {
+      "type": "standard",
+      "title": "Reconoce Nivel de Depresión Bajo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Su nivel de depresión es <b>Bajo</b>, puedes revisar nuestra web para informarse mas del tema. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Una actitud positiva te da poder sobre tus circunstancias en lugar de que tus circunstancias tengan poder sobre ti!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635962603533",
+      "metadata": {
+        "_customization": {
+          "mcr": false
+        }
+      },
+      "conditions": "$puntajeB1 < 5",
+      "dialog_node": "node_5_1635999318211"
+    },
+    {
+      "type": "standard",
+      "title": "Reconoce Usuario sin Depresión",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Según la evaluación usted <b>no</b> tiene una tendencia a pasar por un <b>cuadro de depresión</b>. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Puedes revisar nuestra web para conocer mas del tema."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635946731687",
+      "conditions": "$puntajeA1 < 3",
+      "dialog_node": "node_6_1636000694986",
+      "previous_sibling": "node_5_1635997049627"
+    },
+    {
+      "type": "standard",
+      "title": "Reconoce Nivel de Depresión Alto",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Su nivel de depresión es <b>Alto</b>, es necesario que realice una evaluación medica para contrarrestar su estado de salud. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "La mayor gloria de la vida no reside en no caernos nunca, sino en levantarnos cada vez que caemos!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635962603533",
+      "conditions": "$puntajeB1 > 14",
+      "dialog_node": "node_9_1636000521725",
+      "previous_sibling": "node_2_1636000360251"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "La llamada ha generado este error: <? output.webhook_error.webhook_result_2 ?>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635962603533",
+      "conditions": "output.webhook_error",
+      "dialog_node": "response_1_1635999176859",
+      "previous_sibling": "response_2_1635964308099"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "No eres tú, soy yo :c",
+            "Lo siento, me enfermé.",
+            "Espera unos minutos, por favor."
+          ],
+          "selection_policy": "random"
+        }
+      },
+      "parent": "node_1_1635962603533",
+      "conditions": "anything_else",
+      "dialog_node": "response_2_1635964308099",
+      "previous_sibling": "response_3_1635998935331"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Gracias por responder"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635962603533",
+      "context": {
+        "puntajeB1": "<? $rptaB1 + $rptaB2 + $rptaB3 + $rptaB4 + $rptaB5 + $rptaB6 + $rptaB7+ $rptaB8 + $rptaB9 ?>"
+      },
+      "conditions": "$webhook_result_2",
+      "dialog_node": "response_3_1635998935331",
+      "previous_sibling": "node_9_1636000521725"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "La llamada ha generado este error: <? output.webhook_error.webhook_result_1 ?>."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635946731687",
+      "conditions": "output.webhook_error",
+      "dialog_node": "response_5_1635975704009",
+      "previous_sibling": "response_8_1635954382928"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "¿Tiene dolores frecuentes de cabeza?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635376089377",
+      "disabled": true,
+      "dialog_node": "response_8_1635946643139"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Lo siento, hubo un error.",
+            "No eres tu soy yo.",
+            "Lo lamento en estos momentos me siento mal."
+          ],
+          "selection_policy": "random"
+        }
+      },
+      "parent": "node_1_1635946731687",
+      "conditions": "anything_else",
+      "dialog_node": "response_8_1635954382928",
+      "previous_sibling": "response_8_1635974872218"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Gracias por responder"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_1_1635946731687",
+      "context": {
+        "puntajeA1": "<?$rptaA1.toInt() + $rptaA2.toInt() + $rptaA3.toInt() + $rptaA4.toInt() + $rptaA5.toInt()?>"
+      },
+      "conditions": "$webhook_result_1",
+      "dialog_node": "response_8_1635974872218",
+      "previous_sibling": "node_6_1636000694986"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Su nivel de depresión es <b>Bajo</b>, puedes revisar nuestra web para informarse mas del tema. "
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "Una actitud positiva te da poder sobre tus circunstancias en lugar de que tus circunstancias tengan poder sobre ti!"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_5_1635999318211",
+      "disabled": true,
+      "conditions": "",
+      "dialog_node": "response_9_1635999360336",
+      "previous_sibling": "node_2_1636001497564"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_2_1635875775722",
+      "variable": "$nombre",
+      "dialog_node": "slot_10_1635875812030"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635946731687",
+      "variable": "$rptaA1",
+      "dialog_node": "slot_10_1635946847741",
+      "previous_sibling": "response_5_1635975704009"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635946731687",
+      "variable": "$rptaA3",
+      "dialog_node": "slot_10_1635946940183",
+      "previous_sibling": "slot_8_1635946999427"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB1",
+      "dialog_node": "slot_10_1635966691328",
+      "previous_sibling": "response_1_1635999176859"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB9",
+      "dialog_node": "slot_1_1635967171345",
+      "previous_sibling": "slot_6_1635967173920"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB6",
+      "dialog_node": "slot_2_1635967165135",
+      "previous_sibling": "slot_7_1635967160365"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB2",
+      "dialog_node": "slot_4_1635964306698",
+      "previous_sibling": "slot_10_1635966691328"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635376089377",
+      "variable": "$nombre",
+      "dialog_node": "slot_6_1635377197756",
+      "previous_sibling": "response_8_1635946643139"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB3",
+      "dialog_node": "slot_6_1635966963738",
+      "previous_sibling": "slot_4_1635964306698"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB4",
+      "dialog_node": "slot_6_1635967073109",
+      "previous_sibling": "slot_6_1635966963738"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB7",
+      "dialog_node": "slot_6_1635967168366",
+      "previous_sibling": "slot_2_1635967165135"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB8",
+      "dialog_node": "slot_6_1635967173920",
+      "previous_sibling": "slot_6_1635967168366"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635962603533",
+      "variable": "$rptaB5",
+      "dialog_node": "slot_7_1635967160365",
+      "previous_sibling": "slot_6_1635967073109"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635946731687",
+      "variable": "$rptaA2",
+      "dialog_node": "slot_8_1635946999427",
+      "previous_sibling": "slot_10_1635946847741"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635946731687",
+      "variable": "$rptaA4",
+      "dialog_node": "slot_9_1635949327304",
+      "previous_sibling": "slot_10_1635946940183"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_1_1635946731687",
+      "variable": "$rptaA5",
+      "dialog_node": "slot_9_1635949501904",
+      "previous_sibling": "slot_9_1635949327304"
+    }
+  ],
+  "counterexamples": [
+    {
+      "text": "Si"
+    }
+  ],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Querías decir:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Ninguna de las anteriores"
+    },
+    "human_agent_assist": {
+      "prompt": "Querías decir:"
+    },
+    "intent_classification": {
+      "training_backend_version": "v2"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "Detectar depresión",
+  "language": "es",
+  "description": "Detecta el nivel de depresión del usuario"
+}
